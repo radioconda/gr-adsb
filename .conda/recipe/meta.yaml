@@ -23,12 +23,14 @@ build:
   string: "unix_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [unix]
   string: "win_pyh{{ PKG_HASH }}_{{ PKG_BUILDNUM }}"  # [win]
   ignore_run_exports_from:
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+    - {{ compiler("c") }}
+    - {{ stdlib("c") }}
+    - {{ compiler("cxx") }}
 
 requirements:
   build:
     - {{ compiler("c") }}
+    - {{ stdlib("c") }}
     - {{ compiler("cxx") }}
     - cmake
     - git
@@ -41,6 +43,7 @@ requirements:
     # the following two entries are for generating builds against specific GR versions
     - gnuradio-core  # [not gnuradio_extra_pin]
     - gnuradio-core {{ gnuradio_extra_pin }}.*  # [gnuradio_extra_pin]
+    - libboost-headers
     - numpy
     - pip  # [win]
     - python >=3.8
